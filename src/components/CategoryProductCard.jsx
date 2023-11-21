@@ -21,7 +21,7 @@ const CategoryProductCard = ({ obj, name }) => {
             </div>
             <div className=' w-full mt-3 mb-3 h-16 flex flex-col justify-around'>
             <h3 className='text-MD font-semibold'>{val.title}</h3>
-            <p className='text-gray-600'>{val.price} $</p>
+            <p className='text-gray-600'>${val.price}</p>
             </div>
             <NavLink to='/singleProduct'>
             <button className='mt-2 bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700' onClick={()=>handleClick(val)}>

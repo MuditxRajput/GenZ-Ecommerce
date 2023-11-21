@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const productSlice = createSlice({
   name: 'products',
-  initialState: { data: [], categories: {},selectedProduct :null },
+  initialState: { data: [], categories: {},selectedProduct :null,categoryFilter: 'All',range:0,filter:null },
   reducers: {
     setProducts: (state, action) => {
       state.data = action.payload;
@@ -11,6 +11,15 @@ const productSlice = createSlice({
     },
     setSelectedProduct : (state,action)=>{
       state.selectedProduct = action.payload
+    },
+    setCategoryFilter:(state,action)=>{
+      state.categoryFilter = action.payload;
+    },
+    setRange:(state,action)=>{
+      state.range = action.payload
+    },
+    setFilter: (state,action)=>{
+      state.filter = action.payload;
     }
   },
 });
@@ -45,5 +54,5 @@ const classifyProductsByCategory = (products) => {
   return categories;
 };
 
-export const { setProducts,setSelectedProduct } = productSlice.actions;
+export const { setProducts,setSelectedProduct,setCategoryFilter,setRange ,setFilter} = productSlice.actions;
 export default productSlice.reducer;

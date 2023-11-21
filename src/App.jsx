@@ -32,9 +32,8 @@ const App = () => {
             <Route path='/women' element ={<Women/>} />
             <Route path='/singleProduct' element ={<SingleProduct/>} />
         </Routes>
-        <Footer/>
+      <Footer/>
     </BrowserRouter>
   )
 }
-
 export default App
