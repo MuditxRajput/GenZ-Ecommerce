@@ -1,8 +1,7 @@
 // import React from 'react';
 import { FaListUl } from "react-icons/fa";
 import { FiGrid } from "react-icons/fi";
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from '../store/productSlice';
+import { useSelector } from 'react-redux';
 import CardLoop from './CardLoop';
 import Dropdown from './Dropdown';
 
@@ -11,7 +10,7 @@ const RightSidebar = () => {
     const range = useSelector((state) => state.product.range);
     const filterName = useSelector((state) => state.product.filter);
     const categoryFilter = useSelector((state) => state.product.categoryFilter);
-  
+    const searchValue = useSelector((state)=>state.product.search);
     let value =
       categoryFilter === 'men'
         ? "men's clothing"
@@ -31,10 +30,8 @@ const RightSidebar = () => {
         const rangedProduct = filteredProduct.filter(
           (product) => product.price <= range
         );
-        console.log('Range:', range);
-    
-        console.log('Before Price Filter:', filteredProduct);
-    console.log('After Price Filter:', rangedProduct);
+
+
     
     if (filterName === 'Price high to lower') {
       rangedProduct.sort((a, b) => b.price - a.price);
@@ -45,14 +42,8 @@ const RightSidebar = () => {
     } else if (filterName === 'Sort(z to a)') {
       rangedProduct.sort((a, b) => b.title.localeCompare(a.title));
     }
-    const dispatch = useDispatch();
-    console.log(rangedProduct);
-    
-    const handleFilterChange = (selectedFilter) => {
-      dispatch(setFilter(selectedFilter));
-    };
-        console.log('Before Price Filter:', filteredProduct);
-        console.log('After Price Filter:', rangedProduct);
+   const filterBySearch = searchValue!=null ?
+    rangedProduct.filter((val)=>val.title.toLowerCase().includes(searchValue.toLowerCase())) : rangedProduct
         return (
           <div>
             <div className='flex justify-between '>
@@ -61,14 +52,15 @@ const RightSidebar = () => {
                 <FaListUl />
               </div>
               <div>
-                Number of products : <span>{rangedProduct.length}</span>
+                Number of products : <span>{filterBySearch.length}</span>
               </div>
               <div>
-                <Dropdown product={rangedProduct} onFilterChange={handleFilterChange} />
+                {/* <Dropdown product={rangedProduct} onFilterChange={handleFilterChange} /> */}
+                <Dropdown product={rangedProduct}  />
               </div>
             </div>
             <div className='grid grid-cols-3 w-[990px] p-2 gap-3'>
-              <CardLoop product={rangedProduct} />
+              <CardLoop product={filterBySearch} />
             </div>
           </div>
         );

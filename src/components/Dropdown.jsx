@@ -23,16 +23,21 @@
 
 // export default Dropdown
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { setFilter } from '../store/productSlice';
 // Inside Dropdown component
 const Dropdown = ({ product, onFilterChange }) => {
   const [selection, setSelection] = useState();
 
+  const dispatch = useDispatch();
   const handle = (e) => {
       const selectedFilter = e.target.value;
       setSelection(selectedFilter);
-      onFilterChange(selectedFilter);
+      dispatch(setFilter(selectedFilter));
+    //   onFilterChange(selectedFilter);
   };
+  //kya me yahi pr dispatch kr sakta hu ???
+
 
   return (
       <div className='rounded-md border-2 border-black px-2'>
